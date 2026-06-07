@@ -1,9 +1,9 @@
 export const ORG = {
-  name: "City of Oakdale",
+  name: "City of Sacramento",
   state: "CA",
-  population: 28400,
-  county: "Stanislaus",
-  website: "www.oakdaleca.gov",
+  population: 524943,
+  county: "Sacramento",
+  website: "www.cityofsacramento.org",
   currentUser: "A. Rodriguez",
   currentUserRole: "Compliance Officer",
 };
@@ -196,7 +196,7 @@ export const MEETINGS: Meeting[] = [
     type: "Regular",
     date: "2024-11-05",
     time: "7:00 PM",
-    location: "City Hall Chamber, 280 N Sierra Ave",
+    location: "City Hall, 915 I Street, Sacramento",
     postingStatus: "Posted",
     postedDate: "2024-11-01",
     postingHours: 96,
@@ -209,7 +209,7 @@ export const MEETINGS: Meeting[] = [
     type: "Special",
     date: "2024-11-12",
     time: "6:00 PM",
-    location: "City Hall Chamber, 280 N Sierra Ave",
+    location: "City Hall, 915 I Street, Sacramento",
     postingStatus: "Not Posted",
     postingDeadline: "2024-11-11T18:00:00",
     agendaItemCount: 3,
@@ -221,7 +221,7 @@ export const MEETINGS: Meeting[] = [
     type: "Regular",
     date: "2024-11-19",
     time: "7:00 PM",
-    location: "City Hall Chamber, 280 N Sierra Ave",
+    location: "City Hall, 915 I Street, Sacramento",
     postingStatus: "Pending",
     postingDeadline: "2024-11-16T19:00:00",
     agendaItemCount: 0,
@@ -322,11 +322,11 @@ export interface StaffMember {
 }
 
 export const STAFF_MEMBERS: StaffMember[] = [
-  { id: "u-1", name: "A. Rodriguez", role: "Compliance Officer", department: "City Clerk", email: "arodriguez@oakdaleca.gov", trainingComplete: true, trainingDate: "2024-03-15", trainingScore: 94 },
-  { id: "u-2", name: "J. Martinez", role: "Deputy Clerk", department: "City Clerk", email: "jmartinez@oakdaleca.gov", trainingComplete: true, trainingDate: "2024-04-02", trainingScore: 88 },
-  { id: "u-3", name: "T. Chen", role: "Records Manager", department: "City Clerk", email: "tchen@oakdaleca.gov", trainingComplete: true, trainingDate: "2024-04-10", trainingScore: 91 },
-  { id: "u-4", name: "R. Patel", role: "IT Manager", department: "IT", email: "rpatel@oakdaleca.gov", trainingComplete: false },
-  { id: "u-5", name: "S. Williams", role: "Dept Coordinator", department: "Planning", email: "swilliams@oakdaleca.gov", trainingComplete: false },
+  { id: "u-1", name: "A. Rodriguez", role: "Compliance Officer", department: "City Clerk", email: "arodriguez@cityofsacramento.org", trainingComplete: true, trainingDate: "2024-03-15", trainingScore: 94 },
+  { id: "u-2", name: "J. Martinez", role: "Deputy Clerk", department: "City Clerk", email: "jmartinez@cityofsacramento.org", trainingComplete: true, trainingDate: "2024-04-02", trainingScore: 88 },
+  { id: "u-3", name: "T. Chen", role: "Records Manager", department: "City Clerk", email: "tchen@cityofsacramento.org", trainingComplete: true, trainingDate: "2024-04-10", trainingScore: 91 },
+  { id: "u-4", name: "R. Patel", role: "IT Manager", department: "IT", email: "rpatel@cityofsacramento.org", trainingComplete: false },
+  { id: "u-5", name: "S. Williams", role: "Dept Coordinator", department: "Planning", email: "swilliams@cityofsacramento.org", trainingComplete: false },
 ];
 
 export const COMPLIANCE_SCORE_HISTORY = [
