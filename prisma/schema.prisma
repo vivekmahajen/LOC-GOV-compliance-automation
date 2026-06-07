@@ -1,0 +1,148 @@
+// This is your Prisma schema file.
+// No database connection needed — using mock data for this demo.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id         String   @id @default(cuid())
+  name       String
+  state      String   @default("CA")
+  county     String?
+  population Int?
+  website    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  users    User[]
+  requests CPRARequest[]
+  meetings Meeting[]
+}
+
+model User {
+  id             String       @id @default(cuid())
+  name           String
+  email          String       @unique
+  role           String
+  department     String?
+  orgId          String
+  organization   Organization @relation(fields: [orgId], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  assignedRequests CPRARequest[] @relation("AssignedRequests")
+  auditLogs        AuditLog[]
+}
+
+model CPRARequest {
+  id            String   @id @default(cuid())
+  requestNumber String   @unique
+  requester     String
+  requesterEmail String?
+  subject       String
+  description   String?
+  receivedDate  DateTime
+  dueDate       DateTime
+  status        String   @default("Received")
+  assignedToId  String?
+  assignedTo    User?    @relation("AssignedRequests", fields: [assignedToId], references: [id])
+  exemption     String?
+  notes         String?
+  isViolation   Boolean  @default(false)
+  responseTime  Int?
+  orgId         String
+  organization  Organization @relation(fields: [orgId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  auditLogs AuditLog[]
+  documents Document[]
+}
+
+model Meeting {
+  id              String   @id @default(cuid())
+  meetingNumber   String   @unique
+  title           String
+  type            String
+  date            DateTime
+  location        String?
+  postingStatus   String   @default("Pending")
+  postedAt        DateTime?
+  postingDeadline DateTime?
+  orgId           String
+  organization    Organization @relation(fields: [orgId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  agendaItems AgendaItem[]
+  minutes     Minutes?
+  auditLogs   AuditLog[]
+}
+
+model AgendaItem {
+  id            String  @id @default(cuid())
+  meetingId     String
+  meeting       Meeting @relation(fields: [meetingId], references: [id])
+  order         Int
+  title         String
+  type          String
+  presenter     String?
+  estimatedTime Int?
+  description   String?
+  createdAt     DateTime @default(now())
+}
+
+model Minutes {
+  id          String   @id @default(cuid())
+  meetingId   String   @unique
+  meeting     Meeting  @relation(fields: [meetingId], references: [id])
+  status      String   @default("Draft")
+  content     String?
+  approvedAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ADAIssue {
+  id          String   @id @default(cuid())
+  issueNumber String   @unique
+  type        String
+  criterion   String
+  severity    String
+  status      String   @default("Open")
+  assetUrl    String?
+  assignedTo  String?
+  resolvedAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Document {
+  id        String   @id @default(cuid())
+  name      String
+  url       String?
+  type      String?
+  requestId String?
+  request   CPRARequest? @relation(fields: [requestId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  timestamp DateTime @default(now())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  details   String?
+  module    String?
+  requestId String?
+  request   CPRARequest? @relation(fields: [requestId], references: [id])
+  meetingId String?
+  meeting   Meeting? @relation(fields: [meetingId], references: [id])
+}
