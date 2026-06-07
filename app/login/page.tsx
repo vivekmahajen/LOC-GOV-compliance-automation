@@ -27,6 +27,7 @@ export default function LoginPage() {
       style={{ background: "var(--bg-primary)" }}
     >
       <div className="w-full max-w-sm">
+        {/* Logo */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4"
             style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
@@ -43,6 +44,7 @@ export default function LoginPage() {
           </p>
         </div>
 
+        {/* Card */}
         <div
           className="rounded-xl border p-8"
           style={{ background: "var(--bg-secondary)", borderColor: "var(--border)" }}

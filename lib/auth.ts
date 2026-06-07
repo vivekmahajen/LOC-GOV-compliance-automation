@@ -25,5 +25,9 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    async signIn({ user }) {
+      // Allow sign-in; org assignment happens post-onboarding
+      return true;
+    },
   },
 };
