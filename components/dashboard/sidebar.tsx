@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import { ORG } from "@/lib/mock-data";
 import {
@@ -12,6 +13,7 @@ import {
   ClipboardList,
   Settings,
   Shield,
+  LogOut,
 } from "lucide-react";
 
 const navItems = [
@@ -25,6 +27,10 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const userName = session?.user?.name ?? ORG.currentUser;
+  const userRole = (session?.user as any)?.role ?? ORG.currentUserRole;
+  const initials = userName.split(" ").map((p: string) => p[0]).join("");
 
   function isActive(href: string, exact?: boolean) {
     if (exact) return pathname === href;
@@ -89,15 +95,23 @@ export function Sidebar() {
       <div className="px-4 py-3 border-t" style={{ borderColor: "var(--border)" }}>
         <div className="flex items-center gap-2">
           <div
-            className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold"
+            className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0"
             style={{ background: "var(--accent-blue)", color: "white" }}
           >
-            {ORG.currentUser.split(" ").map(p => p[0]).join("")}
+            {initials}
           </div>
-          <div>
-            <p className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>{ORG.currentUser}</p>
-            <p className="text-xs" style={{ color: "var(--text-muted)" }}>{ORG.currentUserRole}</p>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-medium truncate" style={{ color: "var(--text-primary)" }}>{userName}</p>
+            <p className="text-xs truncate" style={{ color: "var(--text-muted)" }}>{userRole}</p>
           </div>
+          <button
+            onClick={() => signOut({ callbackUrl: "/login" })}
+            title="Sign out"
+            className="p-1 rounded hover:opacity-80 transition-opacity flex-shrink-0"
+            style={{ color: "var(--text-muted)" }}
+          >
+            <LogOut size={14} />
+          </button>
         </div>
       </div>
     </aside>
