@@ -6,6 +6,7 @@ import { formatDate } from "@/lib/utils";
 import { ArrowLeft, Bot, CheckSquare, Square, AlertTriangle, Plus, Globe, Clipboard, Building } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AgendaReviewerPanel } from "@/components/meetings/AgendaReviewerPanel";
 
 export default async function MeetingDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -102,41 +103,11 @@ export default async function MeetingDetailPage({ params }: { params: Promise<{ 
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-xs mb-3" style={{ color: "var(--text-secondary)" }}>
-                Analyze this agenda for Brown Act compliance issues before posting.
-              </p>
-              <Button variant="primary" size="sm" className="mb-4">
-                <Bot size={13} />
-                Review Agenda for Compliance
-              </Button>
-
-              {/* Mock AI Result */}
-              <div className="rounded border p-3 space-y-3" style={{ background: "var(--bg-tertiary)", borderColor: "var(--accent-amber)" }}>
-                <div className="flex items-center gap-2">
-                  <AlertTriangle size={13} style={{ color: "var(--accent-amber)" }} />
-                  <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--accent-amber)" }}>
-                    VIOLATIONS_FOUND — 2 Issues
-                  </span>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="p-2 rounded border" style={{ borderColor: "var(--border)", background: "var(--bg-secondary)" }}>
-                    <p className="text-xs font-semibold" style={{ color: "var(--accent-amber)" }}>Issue 1 — Closed Session Description</p>
-                    <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>
-                      Agenda item #6 "Closed Session — Pending Litigation" lacks required specificity under GC §54956.9(d). Must identify number of cases and nature of exposure.
-                    </p>
-                    <Badge variant="amber" className="mt-1">GC §54956.9</Badge>
-                  </div>
-
-                  <div className="p-2 rounded border" style={{ borderColor: "var(--border)", background: "var(--bg-secondary)" }}>
-                    <p className="text-xs font-semibold" style={{ color: "var(--accent-amber)" }}>Issue 2 — Public Comment Timing</p>
-                    <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>
-                      Public comment is listed as item #3. Brown Act requires opportunity for public comment before or during consideration of action items. Recommend moving to precede all action items.
-                    </p>
-                    <Badge variant="amber" className="mt-1">GC §54954.3</Badge>
-                  </div>
-                </div>
-              </div>
+              <AgendaReviewerPanel
+                meetingType={meeting.type}
+                cityName="City of Oakdale"
+                postingDeadline="72 hours before meeting"
+              />
             </CardContent>
           </Card>
 

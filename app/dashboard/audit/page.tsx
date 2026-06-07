@@ -38,13 +38,23 @@ export default function AuditPage() {
   const [aiResponse, setAiResponse] = useState("");
   const [loading, setLoading] = useState(false);
 
-  function handleAIQuery() {
+  async function handleAIQuery() {
     if (!aiQuery.trim()) return;
     setLoading(true);
-    setTimeout(() => {
-      setAiResponse(MOCK_AI_RESPONSE);
+    setAiResponse("");
+    try {
+      const res = await fetch("/api/ai/audit-response", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: aiQuery }),
+      });
+      const data = await res.json();
+      setAiResponse(data.response || data.error || "No response received.");
+    } catch {
+      setAiResponse("Failed to get response. Please check your connection and try again.");
+    } finally {
       setLoading(false);
-    }, 1200);
+    }
   }
 
   return (

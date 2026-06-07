@@ -7,6 +7,7 @@ import { formatDate, formatDateTime } from "@/lib/utils";
 import { ArrowLeft, Clock, User, Calendar, FileCheck, AlertTriangle, Bot } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ExemptionAdvisorPanel } from "@/components/cpra/ExemptionAdvisorPanel";
 
 export default async function CPRADetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -202,43 +203,10 @@ export default async function CPRADetailPage({ params }: { params: Promise<{ id:
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-xs mb-3" style={{ color: "var(--text-secondary)" }}>
-                Analyze this request against CPRA exemptions to identify applicable exemptions under Government Code §6254.
-              </p>
-              <Button variant="primary" size="sm" className="w-full mb-4">
-                <Bot size={13} />
-                Analyse Request
-              </Button>
-
-              {/* Mock AI Response */}
-              <div className="rounded border p-3 space-y-3" style={{ background: "var(--bg-tertiary)", borderColor: "var(--border)" }}>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full" style={{ background: "var(--accent-amber)" }} />
-                  <span className="text-xs font-semibold" style={{ color: "var(--accent-amber)" }}>2 Potential Exemptions Found</span>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="p-2 rounded border" style={{ borderColor: "var(--border)", background: "var(--bg-secondary)" }}>
-                    <p className="text-xs font-mono font-semibold" style={{ color: "var(--text-primary)" }}>GC §6254(a)</p>
-                    <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>
-                      Preliminary drafts, notes, or interagency/intra-agency memoranda not retained as public records — may apply to draft emails.
-                    </p>
-                    <Badge variant="amber" className="mt-1">Review Required</Badge>
-                  </div>
-
-                  <div className="p-2 rounded border" style={{ borderColor: "var(--border)", background: "var(--bg-secondary)" }}>
-                    <p className="text-xs font-mono font-semibold" style={{ color: "var(--text-primary)" }}>GC §6254(c)</p>
-                    <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>
-                      Personnel, medical, or similar files — personal privacy exemption may cover individual contact info in emails.
-                    </p>
-                    <Badge variant="amber" className="mt-1">Partial Redaction</Badge>
-                  </div>
-                </div>
-
-                <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-                  This analysis is advisory only. Consult City Attorney before applying exemptions.
-                </p>
-              </div>
+              <ExemptionAdvisorPanel
+                requestDescription={request.subject}
+                cityName="City of Oakdale"
+              />
             </CardContent>
           </Card>
 
