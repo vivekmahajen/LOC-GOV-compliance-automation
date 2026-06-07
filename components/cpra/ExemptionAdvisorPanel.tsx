@@ -65,7 +65,7 @@ export function ExemptionAdvisorPanel({
       </p>
       <Button variant="primary" size="sm" className="w-full" onClick={analyse} disabled={loading}>
         {loading ? <Loader2 size={13} className="animate-spin" /> : <Bot size={13} />}
-        {loading ? "Analysing…" : "Analyse Request"}
+        {loading ? "Analysing..." : "Analyse Request"}
       </Button>
 
       {error && (

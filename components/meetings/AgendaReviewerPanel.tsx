@@ -90,7 +90,7 @@ export function AgendaReviewerPanel({
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           rows={6}
-          placeholder="Paste agenda text here…"
+          placeholder="Paste agenda text here..."
           className="w-full text-xs rounded border p-2 resize-none"
           style={{
             background: "var(--bg-tertiary)",
@@ -103,7 +103,7 @@ export function AgendaReviewerPanel({
 
       <Button variant="primary" size="sm" onClick={review} disabled={loading || !inputText.trim()}>
         {loading ? <Loader2 size={13} className="animate-spin" /> : <Bot size={13} />}
-        {loading ? "Reviewing…" : "Review Agenda for Compliance"}
+        {loading ? "Reviewing..." : "Review Agenda for Compliance"}
       </Button>
 
       {error && (

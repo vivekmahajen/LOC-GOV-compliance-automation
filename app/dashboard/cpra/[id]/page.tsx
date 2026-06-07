@@ -18,25 +18,15 @@ export default async function CPRADetailPage({ params }: { params: Promise<{ id:
 
   return (
     <div className="space-y-6 max-w-5xl">
-      {/* Back + Header */}
       <div>
-        <Link
-          href="/dashboard/cpra"
-          className="inline-flex items-center gap-2 text-sm mb-4 transition-colors hover:opacity-80"
-          style={{ color: "var(--text-secondary)" }}
-        >
+        <Link href="/dashboard/cpra" className="inline-flex items-center gap-2 text-sm mb-4 transition-colors hover:opacity-80" style={{ color: "var(--text-secondary)" }}>
           <ArrowLeft size={14} />
           Back to Requests
         </Link>
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <h1
-                className="text-2xl font-bold font-mono"
-                style={{ color: "var(--text-primary)" }}
-              >
-                {request.id}
-              </h1>
+              <h1 className="text-2xl font-bold font-mono" style={{ color: "var(--text-primary)" }}>{request.id}</h1>
               {request.isViolation ? (
                 <Badge variant="red">VIOLATION</Badge>
               ) : request.daysRemaining <= 1 && request.status !== "Fulfilled" && request.status !== "Denied" ? (
@@ -53,9 +43,7 @@ export default async function CPRADetailPage({ params }: { params: Promise<{ id:
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main content */}
         <div className="lg:col-span-2 space-y-4">
-          {/* Meta info */}
           <Card>
             <CardContent>
               <div className="grid grid-cols-2 gap-4">
@@ -91,14 +79,8 @@ export default async function CPRADetailPage({ params }: { params: Promise<{ id:
             </CardContent>
           </Card>
 
-          {/* Compliance Clock */}
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Clock size={14} />
-                Compliance Clock
-              </CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle className="flex items-center gap-2"><Clock size={14} />Compliance Clock</CardTitle></CardHeader>
             <CardContent>
               <div className="space-y-3">
                 <div className="flex justify-between text-xs" style={{ color: "var(--text-secondary)" }}>
@@ -112,13 +94,7 @@ export default async function CPRADetailPage({ params }: { params: Promise<{ id:
                   )}
                 </div>
                 <div className="h-3 rounded-full overflow-hidden" style={{ background: "var(--bg-tertiary)" }}>
-                  <div
-                    className="h-full rounded-full transition-all"
-                    style={{
-                      width: `${daysPct}%`,
-                      background: daysPct >= 90 ? "var(--accent-red)" : daysPct >= 70 ? "var(--accent-amber)" : "var(--accent-green)",
-                    }}
-                  />
+                  <div className="h-full rounded-full transition-all" style={{ width: `${daysPct}%`, background: daysPct >= 90 ? "var(--accent-red)" : daysPct >= 70 ? "var(--accent-amber)" : "var(--accent-green)" }} />
                 </div>
                 <div className="flex justify-between text-xs font-mono" style={{ color: "var(--text-muted)" }}>
                   <span>Received: {formatDate(request.receivedDate)}</span>
@@ -128,15 +104,10 @@ export default async function CPRADetailPage({ params }: { params: Promise<{ id:
             </CardContent>
           </Card>
 
-          {/* Request Content */}
           <Card>
-            <CardHeader>
-              <CardTitle>Request Text</CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle>Request Text</CardTitle></CardHeader>
             <CardContent>
-              <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                {request.subject}
-              </p>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>{request.subject}</p>
               {request.notes && (
                 <div className="mt-3 p-3 rounded border" style={{ background: "var(--bg-tertiary)", borderColor: "var(--border)" }}>
                   <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "var(--text-muted)" }}>Notes</p>
@@ -146,17 +117,11 @@ export default async function CPRADetailPage({ params }: { params: Promise<{ id:
             </CardContent>
           </Card>
 
-          {/* Actions */}
           <Card>
-            <CardHeader>
-              <CardTitle>Actions</CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle>Actions</CardTitle></CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-2">
-                <Button variant="primary" size="sm">
-                  <FileCheck size={13} />
-                  Fulfill Request
-                </Button>
+                <Button variant="primary" size="sm"><FileCheck size={13} />Fulfill Request</Button>
                 <Button variant="secondary" size="sm">Request Extension</Button>
                 <Button variant="secondary" size="sm">Apply Exemption</Button>
                 <Button variant="danger" size="sm">Deny Request</Button>
@@ -164,27 +129,20 @@ export default async function CPRADetailPage({ params }: { params: Promise<{ id:
             </CardContent>
           </Card>
 
-          {/* Audit Log */}
           <Card>
-            <CardHeader>
-              <CardTitle>Audit Log</CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle>Audit Log</CardTitle></CardHeader>
             <CardContent>
               <div className="space-y-2">
                 {request.auditLog.map((entry) => (
                   <div key={entry.id} className="flex gap-3 py-2 border-b last:border-0" style={{ borderColor: "var(--border)" }}>
                     <div className="flex-shrink-0 w-36">
-                      <span className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>
-                        {formatDateTime(entry.timestamp)}
-                      </span>
+                      <span className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>{formatDateTime(entry.timestamp)}</span>
                     </div>
                     <div>
                       <span className="text-xs font-mono font-medium" style={{ color: "var(--accent-blue)" }}>{entry.user}</span>
                       <span className="text-xs font-mono mx-2" style={{ color: "var(--text-muted)" }}>—</span>
                       <span className="text-xs font-mono" style={{ color: "var(--text-secondary)" }}>{entry.action}</span>
-                      {entry.details && (
-                        <p className="text-xs font-mono mt-0.5" style={{ color: "var(--text-muted)" }}>{entry.details}</p>
-                      )}
+                      {entry.details && <p className="text-xs font-mono mt-0.5" style={{ color: "var(--text-muted)" }}>{entry.details}</p>}
                     </div>
                   </div>
                 ))}
@@ -193,28 +151,16 @@ export default async function CPRADetailPage({ params }: { params: Promise<{ id:
           </Card>
         </div>
 
-        {/* AI Exemption Advisor */}
         <div className="space-y-4">
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Bot size={14} />
-                AI Exemption Advisor
-              </CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle className="flex items-center gap-2"><Bot size={14} />AI Exemption Advisor</CardTitle></CardHeader>
             <CardContent>
-              <ExemptionAdvisorPanel
-                requestDescription={request.subject}
-                cityName="City of Oakdale"
-              />
+              <ExemptionAdvisorPanel requestDescription={request.subject} cityName="City of Oakdale" />
             </CardContent>
           </Card>
 
-          {/* Status History */}
           <Card>
-            <CardHeader>
-              <CardTitle>Status</CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle>Status</CardTitle></CardHeader>
             <CardContent>
               <div className="space-y-2">
                 {[
@@ -223,16 +169,8 @@ export default async function CPRADetailPage({ params }: { params: Promise<{ id:
                   { status: "Response Sent", done: request.status === "Fulfilled" || request.status === "Denied" },
                 ].map((s) => (
                   <div key={s.status} className="flex items-center gap-2">
-                    <div
-                      className="w-3 h-3 rounded-full border-2 flex-shrink-0"
-                      style={{
-                        background: s.done ? "var(--accent-green)" : "transparent",
-                        borderColor: s.done ? "var(--accent-green)" : "var(--border)",
-                      }}
-                    />
-                    <span className="text-xs" style={{ color: s.done ? "var(--text-primary)" : "var(--text-muted)" }}>
-                      {s.status}
-                    </span>
+                    <div className="w-3 h-3 rounded-full border-2 flex-shrink-0" style={{ background: s.done ? "var(--accent-green)" : "transparent", borderColor: s.done ? "var(--accent-green)" : "var(--border)" }} />
+                    <span className="text-xs" style={{ color: s.done ? "var(--text-primary)" : "var(--text-muted)" }}>{s.status}</span>
                   </div>
                 ))}
               </div>

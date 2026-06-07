@@ -1,6 +1,6 @@
 "use client";
 
-import { COMPLIANCE_SCORE_HISTORY, UPCOMING_DEADLINES } from "@/lib/mock-data";
+import { COMPLIANCE_SCORE_HISTORY } from "@/lib/mock-data";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -44,7 +44,6 @@ export default function AuditPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold" style={{ fontFamily: "var(--font-ibm-plex-serif)", color: "var(--text-primary)" }}>
@@ -61,7 +60,6 @@ export default function AuditPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Score History Chart */}
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -73,31 +71,12 @@ export default function AuditPage() {
             <div className="h-48">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={COMPLIANCE_SCORE_HISTORY} barSize={32}>
-                  <XAxis
-                    dataKey="month"
-                    tick={{ fontSize: 11, fill: "var(--text-muted)", fontFamily: "var(--font-ibm-plex-mono)" }}
-                    axisLine={false}
-                    tickLine={false}
-                  />
-                  <YAxis
-                    domain={[60, 100]}
-                    tick={{ fontSize: 11, fill: "var(--text-muted)", fontFamily: "var(--font-ibm-plex-mono)" }}
-                    axisLine={false}
-                    tickLine={false}
-                    width={30}
-                  />
-                  <Tooltip
-                    contentStyle={{ background: "var(--bg-tertiary)", border: "1px solid var(--border)", borderRadius: "6px", fontSize: "12px" }}
-                    labelStyle={{ color: "var(--text-secondary)" }}
-                    itemStyle={{ color: "var(--text-primary)" }}
-                    cursor={{ fill: "var(--bg-tertiary)", opacity: 0.5 }}
-                  />
+                  <XAxis dataKey="month" tick={{ fontSize: 11, fill: "var(--text-muted)", fontFamily: "var(--font-ibm-plex-mono)" }} axisLine={false} tickLine={false} />
+                  <YAxis domain={[60, 100]} tick={{ fontSize: 11, fill: "var(--text-muted)", fontFamily: "var(--font-ibm-plex-mono)" }} axisLine={false} tickLine={false} width={30} />
+                  <Tooltip contentStyle={{ background: "var(--bg-tertiary)", border: "1px solid var(--border)", borderRadius: "6px", fontSize: "12px" }} labelStyle={{ color: "var(--text-secondary)" }} itemStyle={{ color: "var(--text-primary)" }} cursor={{ fill: "var(--bg-tertiary)", opacity: 0.5 }} />
                   <Bar dataKey="score" radius={[4, 4, 0, 0]}>
                     {COMPLIANCE_SCORE_HISTORY.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={index === COMPLIANCE_SCORE_HISTORY.length - 1 ? "var(--gold)" : "var(--accent-blue)"}
-                      />
+                      <Cell key={`cell-${index}`} fill={index === COMPLIANCE_SCORE_HISTORY.length - 1 ? "var(--gold)" : "var(--accent-blue)"} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -109,7 +88,6 @@ export default function AuditPage() {
           </CardContent>
         </Card>
 
-        {/* Regulatory Deadlines */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -125,9 +103,7 @@ export default function AuditPage() {
                     <p className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>{d.title}</p>
                     <p className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>{d.date} · {d.module}</p>
                   </div>
-                  <Badge variant={d.days <= 1 ? "red" : d.days <= 5 ? "amber" : "muted"}>
-                    {d.days}d
-                  </Badge>
+                  <Badge variant={d.days <= 1 ? "red" : d.days <= 5 ? "amber" : "muted"}>{d.days}d</Badge>
                 </div>
               ))}
             </div>
@@ -135,7 +111,6 @@ export default function AuditPage() {
         </Card>
       </div>
 
-      {/* AI Audit Response Assistant */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -169,9 +144,7 @@ export default function AuditPage() {
                 <span className="text-xs font-semibold" style={{ color: "var(--accent-green)" }}>AI Response Generated</span>
                 <span className="text-xs font-mono ml-auto" style={{ color: "var(--text-muted)" }}>Based on compliance records through Nov 2024</span>
               </div>
-              <pre className="text-xs whitespace-pre-wrap font-mono leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                {aiResponse}
-              </pre>
+              <pre className="text-xs whitespace-pre-wrap font-mono leading-relaxed" style={{ color: "var(--text-secondary)" }}>{aiResponse}</pre>
               <div className="flex gap-2 mt-3">
                 <Button variant="secondary" size="sm">Copy to Clipboard</Button>
                 <Button variant="secondary" size="sm">Export as PDF</Button>

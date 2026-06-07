@@ -7,7 +7,7 @@ const SYSTEM_PROMPT = `You are a California Public Records Act (CPRA) compliance
 
 YOUR TASK:
 1. Analyse the request description.
-2. Identify the 1–3 most applicable CPRA exemptions.
+2. Identify the 1-3 most applicable CPRA exemptions.
 3. For each suggested exemption, provide:
    - The Government Code citation (e.g., GC §6254(f))
    - A plain-language explanation of why it applies to THIS specific request
@@ -39,7 +39,7 @@ OUTPUT FORMAT: Return valid JSON only, no markdown fences:
   "partial_disclosure_rationale": "[if true, what should be disclosed vs. withheld]",
   "attorney_review_recommended": true,
   "attorney_review_reason": "[why attorney review is important for this specific request]",
-  "overall_assessment": "[2–3 sentence plain-language summary for the City Clerk]"
+  "overall_assessment": "[2-3 sentence plain-language summary for the City Clerk]"
 }`;
 
 export async function POST(req: NextRequest) {
@@ -63,8 +63,6 @@ export async function POST(req: NextRequest) {
     });
 
     const text = response.content[0].type === "text" ? response.content[0].text : "";
-
-    // Strip any accidental markdown fences
     const cleaned = text.replace(/^```json\s*/i, "").replace(/\s*```$/i, "").trim();
     const result = JSON.parse(cleaned);
 

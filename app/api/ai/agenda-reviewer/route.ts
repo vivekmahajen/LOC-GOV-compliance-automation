@@ -48,7 +48,7 @@ OUTPUT FORMAT: Return valid JSON only, no markdown fences:
       "recommended_fix": "[specific rewording or action to take]"
     }
   ],
-  "overall_assessment": "[2–3 sentence summary for City Clerk]",
+  "overall_assessment": "[2-3 sentence summary for City Clerk]",
   "attorney_review_recommended": true,
   "attorney_review_reason": "[if true, why]"
 }`;
@@ -68,14 +68,7 @@ export async function POST(req: NextRequest) {
       messages: [
         {
           role: "user",
-          content: `City: ${cityName || "City of Oakdale"}
-Meeting type: ${meetingType || "Regular"}
-Posting deadline: ${postingDeadline || "72 hours before meeting"}
-
-Draft agenda:
-${agendaText}
-
-Please review this agenda for Brown Act compliance and return JSON only.`,
+          content: `City: ${cityName || "City of Oakdale"}\nMeeting type: ${meetingType || "Regular"}\nPosting deadline: ${postingDeadline || "72 hours before meeting"}\n\nDraft agenda:\n${agendaText}\n\nPlease review this agenda for Brown Act compliance and return JSON only.`,
         },
       ],
     });

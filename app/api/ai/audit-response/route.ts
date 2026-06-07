@@ -44,13 +44,7 @@ export async function POST(req: NextRequest) {
       messages: [
         {
           role: "user",
-          content: `City compliance context:
-${JSON.stringify(context, null, 2)}
-
-Staff question or audit inquiry:
-${query}
-
-Please provide a clear, actionable response.`,
+          content: `City compliance context:\n${JSON.stringify(context, null, 2)}\n\nStaff question or audit inquiry:\n${query}\n\nPlease provide a clear, actionable response.`,
         },
       ],
     });
