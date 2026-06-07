@@ -18,21 +18,6 @@ const REGULATORY_DEADLINES = [
   { date: "Dec 31", title: "AB 434 Annual Certification Renewal", days: 52, module: "ADA" },
 ];
 
-const MOCK_AI_RESPONSE = `Based on your compliance records for the City of Oakdale:
-
-SUMMARY OF FINDINGS:
-• CPRA Compliance: 98% on-time response rate (above state average of 87%). One active violation (CPRA-2024-0044) pending remediation.
-• Brown Act: November 12 Special Meeting requires immediate posting action. October 15 meeting minutes are 25 days pending — recommend expedited approval.
-• ADA/AB 434: Current certification valid through Dec 31, 2024. 3 critical WCAG issues require resolution before renewal.
-
-RECOMMENDED ACTIONS FOR AUDIT RESPONSE:
-1. Provide written remediation plan for CPRA-2024-0044 violation within 10 business days
-2. Post special meeting notice for Nov 12 meeting immediately
-3. Approve Oct 15 meeting minutes at next council meeting
-4. Resolve critical ADA issues (keyboard trap, missing form labels) before certification renewal
-
-This response is generated from your compliance records. Consult City Attorney before submitting to auditors.`;
-
 export default function AuditPage() {
   const [aiQuery, setAiQuery] = useState("");
   const [aiResponse, setAiResponse] = useState("");
